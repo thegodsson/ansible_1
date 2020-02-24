@@ -19,7 +19,7 @@
     state: present
   become: yes
 
-- name: Update apt and install docker-ce
+- name: Install docker-ce
   apt: update_cache=yes name=docker-ce state=latest
   become: yes
 
@@ -28,16 +28,17 @@
     name: python-pip
   become: yes
 
-
-
-- name: Install Docker Module for Python
+- name: install Docker Compose
   pip:
-    name: docker-py
+    name:
 
-    #- name: Pull default Docker image
-    #docker_container:
-    #image: hello-world
-    #source: pull
-    #become: yes
+      - docker-compose
+
+- name: run container
+  docker_container:
+    name: mynginx
+    image: nginx
+    ports: 8080:80
+    state: started
 
 
