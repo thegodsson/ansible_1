@@ -36,9 +36,9 @@
 
 - name: run container
   docker_container:
-    name: mynginx
+    name: mynginx2
     image: nginx
-    ports: 8080:80
+    ports: 8081:80
     state: started
 
 
