@@ -7,11 +7,11 @@
   loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools']
   become: yes
 
-- name: Add Docker GPG apt Key
-  apt_key:
-    url: https://download.docker.com/linux/ubuntu/gpg
-    state: present
-  become: yes
+  #- name: Add Docker GPG apt Key
+  #apt_key:
+  #  url: https://download.docker.com/linux/ubuntu/gpg
+  #  state: present
+  #become: yes
 
 - name: Add Docker Repository
   apt_repository:
@@ -37,7 +37,7 @@
 - name: run container
   docker_container:
     name: mynginx2
-    image: nginx
+    image: nginx:latest
     ports: 8081:80
     state: started
 
