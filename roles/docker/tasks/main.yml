@@ -37,8 +37,10 @@
 - name: run container
   docker_container:
     name: mynginx2
-    image: nginx:latest
+    #image: nginx:latest
+    image: registry.gitlab.com/thegodsson/jenkins/container_registry/ngnix_docker:david-latest
     ports: 8081:80
     state: started
+    #registry.gitlab.com/thegodsson/jenkins/container_registry/ngnix_docker:david-latest
 
 
