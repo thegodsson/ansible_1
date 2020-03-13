@@ -1,0 +1,9 @@
+version: '3'
+services:
+  web:
+    image: nginx:latest
+    hostname: web
+    volumes:
+      - "./save_nginx_2:/usr/share/nginx/html/"  
+    ports:
+      - 8081:80

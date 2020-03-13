@@ -46,18 +46,12 @@
     state: directory
     mode: '0755'
 
-    #- name: run container
-    #docker_container:
-    #name: mynginx2
-    #image: registry.gitlab.com/thegodsson/jenkins/container_registry/docker_ngnix:david-latest
-    #ports: 8082:80
-    #state: started
-- name: Compose Image dockerfile
-  docker_compose:
-    project_name: mywebsite
-    build: yes
-    image: registry.gitlab.com/thegodsson/jenkins/container_registry/docker_ngnix:david-latest  
-
-
+- name: run container
+  docker_container:
+    name: mynginx2
+    #image: nginx:latest
+    image: registry.gitlab.com/thegodsson/jenkins/container_registry/docker_ngnix:david-latest
+    ports: 8082:80
+    state: started
 
 
