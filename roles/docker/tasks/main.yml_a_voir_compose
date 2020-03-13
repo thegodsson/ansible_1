@@ -38,27 +38,22 @@
   file:
     path: /srv-data/nginx/conf.d
     state: directory
-    owner: jenkins
-    group: jenkins
     mode: '0755'
 
 - name: Create a directory if it does not exist
   file:
     path: /srv-data/nginx/html
     state: directory
-    owner: jenkins
-    group: jenkins
     mode: '0755'
 
-    #Ce qui suit fonctionne mais je n'arraives pas à utilisé les volumes avec    
-    #- name: run container
-    #docker_container:
-    #name: mynginx2
-    #image: nginx:latest
-    #image: registry.gitlab.com/thegodsson/jenkins/container_registry/docker_ngnix:david-latest
-    #ports: 8083:80
-    #state: started
- - name: Pull image nginx
-   docker_image:
-     name: nginx
-     source: pull
+- name: Compose dockerfile
+  - docker-compose:
+      version: '3'
+      services:
+        web:
+          image: registry.gitlab.com/thegodsson/jenkins/container_registry/docker_ngnix:david-latest
+          ports:
+            - "8083:80"
+          volumes:
+            - /var/lib/jenkins/ANSIBLE/ansible_1/save_nginx/html:/usr/share/nginx/html
+            - /var/lib/jenkins/ANSIBLE/ansible_1/save_nginx/conf:/etc/nginx/conf.d

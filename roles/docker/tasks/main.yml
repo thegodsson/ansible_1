@@ -38,26 +38,32 @@
   file:
     path: /srv-data/nginx/conf.d
     state: directory
+    owner: jenkins
+    group: jenkins
     mode: '0755'
 
 - name: Create a directory if it does not exist
   file:
     path: /srv-data/nginx/html
     state: directory
+    owner: jenkins
+    group: jenkins
     mode: '0755'
 
-    #- name: run container
-    #docker_container:
-    #name: mynginx2
-    #image: registry.gitlab.com/thegodsson/jenkins/container_registry/docker_ngnix:david-latest
-    #ports: 8082:80
-    #state: started
-- name: Compose Image dockerfile
-  docker_compose:
-    project_name: mywebsite
-    build: yes
-    image: registry.gitlab.com/thegodsson/jenkins/container_registry/docker_ngnix:david-latest  
+ #Ce qui suit fonctionne mais je n'arraives pas à utilisé les volumes avec
+- name: run container
+  docker_container:
+    name: mynginx2
+    #image: nginx:latest
+    image: registry.gitlab.com/thegodsson/jenkins/container_registry/docker_ngnix:david-latest
+    #ports: 8083:80
+    state: stopped
+
+- name: Use shell for delete process container docker failed
+  shell: docker rm -f $(docker ps -aq)
 
 
+- name: Active container docker with volumes
+  shell: docker run --name mynginx1 -v /srv-data/nginx/html:/usr/share/nginx/html -p 8083:80 -d nginx
 
 
